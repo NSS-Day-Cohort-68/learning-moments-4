@@ -6,6 +6,7 @@ import { PostDropdown, PostSearch } from "./PostFilterBar.js";
 export const PostList = () => {
   const [posts, setAllPosts] = useState([]);
   const [filterPosts, setFilterPosts] = useState([]);
+
   const [searchTerm, setSearchTerm] = useState("");
   const [topicId, setTopicId] = useState("");
   const [filterTopic, setFilterTopic] = useState("");
@@ -18,11 +19,14 @@ export const PostList = () => {
   }, []);
 
   useEffect(() => {
-    const foundPosts = filterPosts.filter((post) =>
-      post.title.toLowerCase().includes(searchTerm.toLowerCase())
+    const foundPosts = posts.filter(
+      (post) =>
+        post.title.toLowerCase().includes(searchTerm.toLowerCase()) &&
+        post.topicId === +topicId
     );
+
     setFilterPosts(foundPosts);
-  }, [searchTerm]);
+  }, [searchTerm, topicId]);
 
   // useEffect(() => {
   //   const foundTopics = posts.filter((post) =>
@@ -31,16 +35,16 @@ export const PostList = () => {
   //   setFilterPosts(foundPosts);
   // }, [searchTerm, posts]);
 
-  useEffect(() => {
-    const foundTopics = filterPosts.filter((post) => post.topicId === +topicId);
-    setFilterPosts(foundTopics);
-  }, [topicId]);
+  // useEffect(() => {
+  //   const foundTopics = posts.filter((post) => post.topicId === +topicId);
+  //   setFilterPosts(foundTopics);
+  // }, [topicId]);
 
-  useEffect(() => {
-    if (searchTerm === "" && topicId === "") {
-      setFilterPosts(posts);
-    }
-  }, [filterPosts]);
+  // useEffect(() => {
+  //   if (searchTerm === "" && topicId === "") {
+  //     setFilterPosts(posts);
+  //   }
+  // }, [filterPosts]);
 
   return (
     <section>

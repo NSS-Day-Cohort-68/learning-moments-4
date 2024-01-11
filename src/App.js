@@ -1,8 +1,26 @@
 import { PostList } from "./components/Posts/PostList.js";
 import { Post } from "./components/Posts/Post.js";
+import { Route, Routes } from "react-router-dom";
+import { ApplicationViews } from "./views/ApplicationViews.js";
+import {Authorized} from "./views/Authorized.js"
+import { Login } from "./components/auth/Login.js";
+import { Register } from "./components/auth/Register.js";
+
 
 export const App = () => {
-  return <PostList />;
+  return (
+    <Routes>
+      <Route path="/login" element={<Login/>} />
+      <Route path="/register" element={<Register/>} />
+      <Route path="*"
+       element={
+       <Authorized>
+        <ApplicationViews/> 
+        </Authorized>
+       }
+       />
+    </Routes>
+  );
 };
 
 /* All Posts > links to the view of all the posts

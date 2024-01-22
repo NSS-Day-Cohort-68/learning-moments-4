@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { getAllPosts } from "../../services/PostServices.js";
 import { Post } from "./Post.js";
 import { PostDropdown, PostSearch } from "./PostFilterBar.js";
+import { Link } from "react-router-dom";
 
 export const PostList = () => {
   const [posts, setAllPosts] = useState([]);
@@ -56,7 +57,11 @@ export const PostList = () => {
       />
       <div className="posts">
         {filterPosts.map((postObj) => {
-          return <Post key={postObj.id} post={postObj} />;
+          return (
+            <Link key={postObj.id} to={`/posts/${postObj.id}`}>
+              <Post key={postObj.id} post={postObj} />;
+            </Link>
+          );
         })}
       </div>
     </section>
